@@ -1,0 +1,8 @@
+
+
+
+curl -X POST http://127.0.0.1:5000/api/get_answer ^
+-H "Content-Type: application/json" ^
+-d "{\"user_id\": \"test_user_2\", \"content\": \"怎麼做番茄炒蛋？\"}"
+    ////////////////////////////////////////////////////////////////
+
