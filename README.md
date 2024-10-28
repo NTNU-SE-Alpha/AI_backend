@@ -9,7 +9,7 @@
 
 **會用到的功能**
 - 寫一個 function，將老師與 AI 對話得出的**最後教學內容**，放進學生 AI 的 system prompt 裡(需要有一個給 AI 人設的 prompt 模板，可以使用 Claude Prompt generator)。
-- 將老師與 AI 對話的內容轉成 RAG，並跟老師上傳給 AI 對話的內容包在一起，作為學生 AI 的 RAG。
+- 將老師與 AI 對話的內容轉成 RAG，並跟老師上傳給 AI 的檔案內容包在一起，作為學生 AI 的 RAG。
 - 上傳資料只能限定 `pdf`
 - 給後端 function 來傳老師的文件
 - 提供一鍵總結教學內容的功能
