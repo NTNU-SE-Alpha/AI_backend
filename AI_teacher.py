@@ -191,8 +191,13 @@ class AITeacher:
     def save_conversation_history(self, filename="conversation_history.json"):
         try:
             filepath = os.path.join(self.save_dir, filename)
+            # 按照指定格式構建對話列表
+            conversation_list = []
+            for q, a in self.conversation_history:
+                conversation_list.append(f"老師: {q}")
+                conversation_list.append(f"AI: {a}")
             with open(filepath, "w", encoding="utf-8") as f:
-                json.dump(self.conversation_history, f, ensure_ascii=False, indent=4)
+                json.dump(conversation_list, f, ensure_ascii=False, indent=4)
             print(f"對話歷史已保存到: {filepath}")
         except Exception as e:
             print(f"Error saving conversation history: {e}")
@@ -285,4 +290,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
