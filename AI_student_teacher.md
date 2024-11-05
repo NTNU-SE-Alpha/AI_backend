@@ -7,12 +7,12 @@
 ## 目錄
 
 - [環境設定與依賴項目](#環境設定與依賴項目)
-- [AI_teacher_temp.py 詳細說明](#ai_teacher_temp.py-詳細說明)
+- [AI_teacher_temp.py 詳細說明](#ai_teacher_temppy-詳細說明)
   - [程式概述](#程式概述)
   - [主要模組和函式](#主要模組和函式)
   - [使用方法](#使用方法)
   - [注意事項](#注意事項)
-- [AI_student_temp.py 詳細說明](#ai_student_temp.py-詳細說明)
+- [AI_student_temp.py 詳細說明](#ai_student_temppy-詳細說明)
   - [程式概述](#程式概述-1)
   - [主要模組和函式](#主要模組和函式-1)
   - [使用方法](#使用方法-1)
