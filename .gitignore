@@ -1,0 +1,12 @@
+# Environment file
+.env
+
+# Migration file
+migrations/
+
+# __pycache
+__pycache__/
+
+AI/
+
+instance/
