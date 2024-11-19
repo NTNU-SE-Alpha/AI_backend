@@ -22,7 +22,7 @@ from models import (
 from config import Config
 from flask_migrate import Migrate
 from datetime import datetime
-
+import re
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -52,7 +52,7 @@ class AITeacher:
         self.llm = ChatOpenAI(
             api_key=self.openai_api_key, max_tokens=4096, model_name="gpt-4o"
         )
-        self.model = SentenceTransformer("paraphrase-mpnet-base-v2")
+        self.model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2")
         self.system_context = None
 
     def summarize_text(self, text):
@@ -117,8 +117,9 @@ class AITeacher:
 
     def build_faiss_index(self, text, save_name=None):
         try:
-            # 分割句子並移除空白行
-            sentences = [s.strip() for s in text.split("\n") if s.strip()]
+           # 分割句子並移除空白行
+            sentences = re.split('(?<=[。！？])', text)
+            sentences = [s.strip() for s in sentences if s.strip()]
             print(f"總句子數: {len(sentences)}")  # 調試信息
 
             if not sentences:
@@ -202,7 +203,7 @@ class AITeacher:
             print(f"載入 FAISS 索引時發生錯誤: {e}")
             return None, None
 
-    def search_rag(self, query, index, sentences, top_k=5):
+    def search_rag(self, query, index, sentences, top_k=10):
         try:
             query_embedding = self.model.encode([query])
             distances, indices = index.search(query_embedding, top_k)
@@ -353,7 +354,6 @@ def chat(conversation_uuid):
             db.session.commit()
 
         teacher.system_context = f"""您是一位AI教學助手。
-以下是課程內容的摘要：{file_content[:1000]}...
 請基於上述內容來回答問題。如果需要引入新的例子或故事，請確保與原始課程內容保持關聯。"""
 
         relevant_context = teacher.search_rag(user_input, index, sentences)
@@ -376,7 +376,7 @@ def chat(conversation_uuid):
 
     messages = [
         SystemMessage(content=teacher.system_context),
-        SystemMessage(content=f"相關上下文：\n\n{context}")
+        SystemMessage(content=f"相關上下文：\n\n{context}"),
     ]
 
     for _, q, a, _ in conversation_history:
